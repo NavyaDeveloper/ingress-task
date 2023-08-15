@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+      - name: homepage
+        image: navyaa14/homepage
+        ports:
+        - containerPort: 80
+        env:
+        - name: TITLE
+          value: "homepage APP2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: homepage
